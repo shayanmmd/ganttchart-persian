@@ -18,7 +18,7 @@ function Pipleline({ percentage = '75' }) {
 
     return (
         <Popup percentage={percentage} show={showPopup}>
-            <ProgressBar dir='rtl' striped onMouseLeave={handlePopoverClose} onMouseEnter={handlePopoverOpen} now={percentage} />
+            <ProgressBar className='m-2' dir='rtl' striped onMouseLeave={handlePopoverClose} onMouseEnter={handlePopoverOpen} now={percentage} />
         </Popup>
     )
 

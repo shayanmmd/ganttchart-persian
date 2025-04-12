@@ -1,11 +1,12 @@
 import './App.css'
-import Pipleline from './components/Pipeline'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Gantt from './components/Gantt/Gantt';
+
 
 function App() {
 
   return (
-    <Pipleline />
+    <Gantt />
   )
 }
 
