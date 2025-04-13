@@ -1,7 +1,7 @@
 import { OverlayTrigger, Popover, Row, Col, Container } from 'react-bootstrap';
 
 
-function Popup({ show,percentage, children }) {
+function Popup({ startDate,endDate,show,percentage, children }) {
 
 
 
@@ -19,14 +19,14 @@ function Popup({ show,percentage, children }) {
                                     <span>زمان شروع :</span>
                                 </Col>
                                 <Col dir='ltr' lg={7}>
-                                    <p>1401/05/12</p>
+                                    <p>{startDate}</p>
                                 </Col>
 
                                 <Col lg={5}>
                                     <span>زمان پایان :</span>
                                 </Col>
                                 <Col dir='ltr' lg={7}>
-                                    <p>1401/05/12</p>
+                                    <p>{endDate}</p>
                                 </Col>
 
                                 <Col lg={8}>

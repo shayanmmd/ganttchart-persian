@@ -60,7 +60,7 @@ import persian_fa from "react-date-object/locales/persian_fa";
 function DateLine() {
 
     const startDate = new DateObject({ year: 1404, month: 1, day: 1, calendar: persian, locale: persian_fa });
-    const endDate = new DateObject({ year: 1404, month: 2, day: 25, calendar: persian, locale: persian_fa });
+    const endDate = new DateObject({ year: 1404, month: 3, day: 25, calendar: persian, locale: persian_fa });
 
     const [dates, setDates] = useState([]);
     const [windowWidth, setWindowWidth] = useState(null);
@@ -89,25 +89,25 @@ function DateLine() {
             const countInRow = Math.floor(windowWidth / approxDateWidth);
 
             let displayDates = [];
-            displayDates.push(startDate.format("YYYY/MM/DD"));
+            displayDates.push(startDate.format("MMMM"));
 
             if (days <= countInRow) {
                 let currentDate = startDate.add(1, "days");
                 while (currentDate < endDate) {
-                    displayDates.push(currentDate.format("YYYY/MM/DD"));
-                    currentDate = currentDate.add(1, "days");
+                    displayDates.push(currentDate.format("MMMM"));
+                    currentDate = currentDate.add(1, "month");
                 }
             } else {
                 const step = Math.floor(days / (countInRow - 1));
                 let currentDate = startDate;
 
                 for (let i = 1; i < countInRow - 1; i++) {
-                    currentDate = startDate.add(step, "days");
-                    displayDates.push(currentDate.format("YYYY/MM/DD"));
+                    currentDate = startDate.add(step, "month");
+                    displayDates.push(currentDate.format("MMMM"));
                 }
             }
 
-            displayDates.push(endDate.format("YYYY/MM/DD"));
+            displayDates.push(endDate.format("MMMM"));
             setDates(displayDates);
         };
 
@@ -116,7 +116,7 @@ function DateLine() {
     }, [windowWidth]);
 
     return (
-        <div style={{ direction: 'rtl', width: '100%', display: 'flex', flexWrap: 'nowrap', overflowX: 'auto', whiteSpace: 'nowrap' }}>
+        <div style={{ direction: 'rtl', width: '100%', display: 'flex', flexWrap: 'nowrap', overflowX: 'auto', whiteSpace: 'nowrap',justifyContent:'center' }}>
             {dates.map((date) => (
                 <span key={date} style={{ margin: '8px' }}>{date}</span>
             ))}
