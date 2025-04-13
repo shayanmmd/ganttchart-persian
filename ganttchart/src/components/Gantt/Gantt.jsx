@@ -2,7 +2,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import DateLine from "../DateLine/DateLine";
 import Pipleline from "../Pipeline/Pipleline";
 import Label from "../Label/Label";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 
 
@@ -12,6 +12,15 @@ function Gantt({ data }) {
     const [bigStartDate, setBigStartDate] = useState(null);
     const [bigEndDate, setBigEndDate] = useState(null);
     const [bigDuration, setBigDuration] = useState(null);
+
+    const colRef = useRef(null);
+    const [colWidth, setColWidth] = useState(0);
+
+    useEffect(() => {
+        if (colRef.current) {
+            setColWidth(colRef.current.offsetWidth);
+        }
+    }, [])
 
     useEffect(() => {
 
@@ -25,6 +34,22 @@ function Gantt({ data }) {
 
     }, []);
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (colRef.current) {
+                setColWidth(colRef.current.offsetWidth);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        handleResize()
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     return (
         <>
             <Container dir="rtl" fluid>
@@ -36,7 +61,7 @@ function Gantt({ data }) {
                         if (bigDuration == null)
                             return
 
-                        const right = Math.floor((((data.startDate - bigStartDate) / msDay) / bigDuration) * 100) + '%';
+                        const right = Math.floor((((data.startDate - bigStartDate) / msDay) / (bigDuration)) * 100) + '%';
                         const left = Math.floor((((bigEndDate - data.endDate) / msDay) / bigDuration) * 100) + '%';
 
                         return (
@@ -59,10 +84,11 @@ function Gantt({ data }) {
                         )
                     })
                 }
-                
-                <Row dir="ltr">
-                    <Col lg={10}>
-                        {/* <DateLine /> */}
+
+                <Row>
+                    <Col></Col>
+                    <Col ref={colRef} xl={10} lg={10} sm={9} xs={8}>
+                        <DateLine width={colWidth} />
                     </Col>
                 </Row>
             </Container>

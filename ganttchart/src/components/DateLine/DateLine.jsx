@@ -51,77 +51,188 @@
 // export default DateLine;
 
 
-import React, { useEffect, useState, useRef } from 'react';
-import { Col, Row } from 'react-bootstrap';
+// import React, { useEffect, useState, useRef } from 'react';
+// import { Col, Row } from 'react-bootstrap';
+// import DateObject from "react-date-object";
+// import persian from "react-date-object/calendars/persian";
+// import persian_fa from "react-date-object/locales/persian_fa";
+
+// function DateLine() {
+
+//     const startDate = new DateObject({ year: 1404, month: 1, day: 1, calendar: persian, locale: persian_fa });
+//     const endDate = new DateObject({ year: 1404, month: 3, day: 25, calendar: persian, locale: persian_fa });
+
+//     const [dates, setDates] = useState([]);
+//     const [windowWidth, setWindowWidth] = useState(null);
+
+//     useEffect(() => {
+
+//         const handleResize = () => {
+//             setWindowWidth(window.innerWidth);
+//         };
+
+//         window.addEventListener('resize', handleResize);
+
+//         return () => {
+//             window.removeEventListener('resize', handleResize);
+//         };
+//     }, []);
+
+//     useEffect(() => {
+
+//         setWindowWidth(window.innerWidth);
+
+//         const generateDates = () => {
+//             let msDay = 24 * 60 * 60 * 1000;
+//             let days = Math.floor((endDate.toDate() - startDate.toDate()) / msDay);
+//             const approxDateWidth = 78;
+//             const countInRow = Math.floor(windowWidth / approxDateWidth);
+
+//             let displayDates = [];
+//             displayDates.push(startDate.format("MMMM"));
+
+//             if (days <= countInRow) {
+//                 let currentDate = startDate.add(1, "month");
+//                 while (currentDate < endDate) {
+//                     displayDates.push(currentDate.format("MMMM"));
+//                     currentDate = currentDate.add(1, "month");
+//                 }
+//             } else {
+//                 const step = Math.floor(days / (countInRow - 1));
+//                 let currentDate = startDate;
+
+//                 for (let i = 1; i < countInRow - 1; i++) {
+//                     currentDate = startDate.add(step, "month");
+//                     displayDates.push(currentDate.format("MMMM"));
+//                 }
+//             }
+
+//             displayDates.push(endDate.format("MMMM"));
+//             setDates(displayDates);
+//         };
+
+//         generateDates();
+
+//     }, [windowWidth]);
+
+//     return (
+//         <div style={{ direction: 'rtl', width: '100%', display: 'flex', flexWrap: 'nowrap', overflowX: 'auto', whiteSpace: 'nowrap',justifyContent:'center' }}>
+//             {dates.map((date) => (
+//                 <span key={date} style={{ margin: '8px' }}>{date}</span>
+//             ))}
+//         </div>
+
+//     );
+// }
+
+// export default DateLine;
+
+
+// import React, { useEffect, useState } from 'react';
+// import { Col, Row } from 'react-bootstrap';
+// import DateObject from "react-date-object";
+// import persian from "react-date-object/calendars/persian";
+// import persian_fa from "react-date-object/locales/persian_fa";
+
+// function DateLine({width}) {
+
+//     const startDate = new DateObject({ year: 1404, month: 1, day: 1, calendar: persian, locale: persian_fa });
+//     const endDate = new DateObject({ year: 1404, month: 12, day: 25, calendar: persian, locale: persian_fa });
+
+//     const [dates, setDates] = useState([]);
+
+//     useEffect(() => {
+//         if (!width) return;
+//         if(!startDate || !endDate) return;
+
+//         const generateDates = () => {
+//             let displayDates = [];
+//             let currentDate = startDate; 
+
+//             while (currentDate <= endDate) {
+//                 displayDates.push(currentDate.format("MMMM"));
+//                 currentDate = currentDate.add(1, "month");
+//             }
+
+//             setDates(displayDates);
+//         };
+
+//         generateDates();
+//     }, [width]);  
+
+
+//     return (
+//         <div style={{ direction: 'rtl', width: '100%', display: 'flex', flexWrap: 'nowrap', overflowX: 'auto', whiteSpace: 'nowrap', justifyContent: 'space-around' }}>
+//             {dates.map((date, index) => (
+//                 <span key={index} style={{ margin: '8px' }}>{date}</span>
+//             ))}
+//         </div>
+//     );
+// }
+
+// export default DateLine;
+
+
 import DateObject from "react-date-object";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
+import React from 'react';
+import { Col, Row } from 'react-bootstrap';
 
-function DateLine() {
+function DateLine({ width, startDate, endDate }) {
 
-    const startDate = new DateObject({ year: 1404, month: 1, day: 1, calendar: persian, locale: persian_fa });
-    const endDate = new DateObject({ year: 1404, month: 3, day: 25, calendar: persian, locale: persian_fa });
+    const estimatedMonthWidth = 80;
 
-    const [dates, setDates] = useState([]);
-    const [windowWidth, setWindowWidth] = useState(null);
+    const start = new DateObject({ year: 1404, month: 1, day: 1, calendar: persian, locale: persian_fa });
+    const end = new DateObject({ year: 1404, month: 10, day: 25, calendar: persian, locale: persian_fa });
 
-    useEffect(() => {
+    const monthsPerRow = Math.floor(width / estimatedMonthWidth);
 
-        const handleResize = () => {
-            setWindowWidth(window.innerWidth);
-        };
 
-        window.addEventListener('resize', handleResize);
+    const months = [];
+    let current = start;
 
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
+    months.push(start.format('MMMM'));
 
-    useEffect(() => {
+    current = current.add(1, "month")
 
-        setWindowWidth(window.innerWidth);
+    let step = 1;
 
-        const generateDates = () => {
-            let msDay = 24 * 60 * 60 * 1000;
-            let days = Math.floor((endDate.toDate() - startDate.toDate()) / msDay);
-            const approxDateWidth = 78;
-            const countInRow = Math.floor(windowWidth / approxDateWidth);
+    let msDay = 24 * 60 * 60 * 1000;
 
-            let displayDates = [];
-            displayDates.push(startDate.format("MMMM"));
+    const allmonths = Math.floor(((end - start) / msDay) / 30);
 
-            if (days <= countInRow) {
-                let currentDate = startDate.add(1, "days");
-                while (currentDate < endDate) {
-                    displayDates.push(currentDate.format("MMMM"));
-                    currentDate = currentDate.add(1, "month");
-                }
-            } else {
-                const step = Math.floor(days / (countInRow - 1));
-                let currentDate = startDate;
 
-                for (let i = 1; i < countInRow - 1; i++) {
-                    currentDate = startDate.add(step, "month");
-                    displayDates.push(currentDate.format("MMMM"));
-                }
-            }
+    if (width <= 320) {
+        step = 10
+    } else if (width <= 768) {
+        step = 3
+    }
+    else {
+        step = 1
+    }
 
-            displayDates.push(endDate.format("MMMM"));
-            setDates(displayDates);
-        };
+    months.push(start.format('MMMM'));
 
-        generateDates();
+    current.add(step, "month");
 
-    }, [windowWidth]);
+
+    while (current < end) {
+        months.push(current.format('MMMM'));
+        current = current.add(step, 'month');
+    }
+
+    if (months[months.length - 1] !== end.format('MMMM')) {
+        months.push(end.format('MMMM'));
+    }
+
 
     return (
-        <div style={{ direction: 'rtl', width: '100%', display: 'flex', flexWrap: 'nowrap', overflowX: 'auto', whiteSpace: 'nowrap',justifyContent:'center' }}>
-            {dates.map((date) => (
-                <span key={date} style={{ margin: '8px' }}>{date}</span>
+        <div style={{ direction: 'rtl', width: '100%', display: 'flex', flexWrap: 'nowrap', overflowX: 'auto', whiteSpace: 'nowrap', justifyContent: 'space-around' }}>
+            {months.map((date, index) => (
+                <span key={index} style={{ margin: '8px' }}>{date}</span>
             ))}
         </div>
-
     );
 }
 

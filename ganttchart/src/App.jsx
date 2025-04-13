@@ -12,7 +12,7 @@ function App() {
       id: 1,
       label: 'تیم سازی',
       startDate: new DateObject({ year: 1404, month: 1, day: 10, calendar: persian, locale: persian_fa }),
-      endDate: new DateObject({ year: 1404, month: 4, day: 13, calendar: persian, locale: persian_fa }),
+      endDate: new DateObject({ year: 1404, month: 10, day: 13, calendar: persian, locale: persian_fa }),
       percentage: 25
     },
     {
