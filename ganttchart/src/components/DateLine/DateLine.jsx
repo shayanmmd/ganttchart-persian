@@ -1,19 +1,22 @@
 
-function DateLine({ width, startDate, endDate }) {
+import { Col, Row } from "react-bootstrap";
+import DateObject from "react-date-object";
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
+function DateLine({ width, startTime, endTime }) {
 
+    const startDate = new DateObject(startTime)
+    const endDate = new DateObject(endTime)
 
     const estimatedMonthWidth = 80;
 
     const monthsPerRow = Math.floor(width / estimatedMonthWidth);
 
-
-
     const months = [];
     let current = startDate;
 
-    months.push(startDate.format('MMMM'));
+    // months.push(startDate.format('MMMM'));
 
-    current = current.add(1, "month")
 
     let step = 1;
 
@@ -53,6 +56,9 @@ function DateLine({ width, startDate, endDate }) {
             ))}
         </div>
     );
+
+
+
 }
 
 export default DateLine;

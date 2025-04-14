@@ -4,7 +4,7 @@ import Popup from '../Popup';
 import { ProgressBar } from 'react-bootstrap';
 
 
-function Pipleline({ startDate,endDate,percentage = '75' }) {
+function Pipleline({ startDate,endDate,percentage = '75',color='info',backgroundColor = 'red' }) {
 
     const [showPopup, setShowPopup] = useState(false);
 
@@ -18,7 +18,7 @@ function Pipleline({ startDate,endDate,percentage = '75' }) {
 
     return (
         <Popup startDate={startDate} endDate={endDate} percentage={percentage} show={showPopup}>
-            <ProgressBar className='m-2' dir='rtl' striped onMouseLeave={handlePopoverClose} onMouseEnter={handlePopoverOpen} now={percentage} />
+            <ProgressBar style={{backgroundColor:backgroundColor}} variant={color} className='progress-bar-custom' dir='rtl'  onMouseLeave={handlePopoverClose} onMouseEnter={handlePopoverOpen} now={percentage} />
         </Popup>
     )
 
