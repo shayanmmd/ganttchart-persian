@@ -4,9 +4,6 @@ import Pipleline from "../Pipeline/Pipleline";
 import Label from "../Label/Label";
 import { useEffect, useRef, useState } from "react";
 
-
-
-
 function Gantt({ data }) {
 
     const [bigStartDate, setBigStartDate] = useState(null);
@@ -17,24 +14,15 @@ function Gantt({ data }) {
     const [colWidth, setColWidth] = useState(0);
 
     useEffect(() => {
-        if (colRef.current) {
-            setColWidth(colRef.current.offsetWidth);
-        }
-    }, [])
 
-    useEffect(() => {
+        setBigStartDate(data[0].startDate);
+        setBigEndDate(data[0].endDate);
 
-        setBigStartDate(data[0].startDate.toDate())
-        setBigEndDate(data[0].endDate.toDate())
+        const msDay = 24 * 60 * 60 * 1000;
+        const daysDuration = Math.floor(((data[0].endDate.toDate() - data[0].startDate.toDate()) / msDay));
 
-        let msDay = 24 * 60 * 60 * 1000;
-        let days = Math.floor(((data[0].endDate.toDate() - data[0].startDate.toDate()) / msDay));
+        setBigDuration(daysDuration);
 
-        setBigDuration(days)
-
-    }, []);
-
-    useEffect(() => {
         const handleResize = () => {
             if (colRef.current) {
                 setColWidth(colRef.current.offsetWidth);
@@ -43,12 +31,13 @@ function Gantt({ data }) {
 
         window.addEventListener('resize', handleResize);
 
-        handleResize()
+        handleResize();
 
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, []);
+
+    }, [])
 
     return (
         <>
@@ -56,16 +45,17 @@ function Gantt({ data }) {
                 {
                     data.map(function (data) {
 
-                        let msDay = 24 * 60 * 60 * 1000;
+                        const msDay = 24 * 60 * 60 * 1000;
 
                         if (bigDuration == null)
-                            return
+                            return;
 
                         const right = Math.floor((((data.startDate - bigStartDate) / msDay) / (bigDuration)) * 100) + '%';
                         const left = Math.floor((((bigEndDate - data.endDate) / msDay) / bigDuration) * 100) + '%';
 
                         return (
                             <Row key={data.id}>
+
                                 <Col className="d-flex align-items-center">
                                     <Label text={data.label} />
                                 </Col>
@@ -80,6 +70,7 @@ function Gantt({ data }) {
                                         />
                                     </div>
                                 </Col>
+
                             </Row>
                         )
                     })
@@ -88,7 +79,8 @@ function Gantt({ data }) {
                 <Row>
                     <Col></Col>
                     <Col ref={colRef} xl={10} lg={10} sm={9} xs={8}>
-                        <DateLine width={colWidth} />
+                        {/* {bigStartDate && bigEndDate &&  colWidth &&  <DateLine startDate={bigStartDate} endDate={bigEndDate} width={colWidth} />} */}
+
                     </Col>
                 </Row>
             </Container>
