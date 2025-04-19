@@ -10,13 +10,16 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { HttpClient } from './services/axios/httpClient';
 import { colors } from './helpers/constats';
+import JalaliDatePicker from './components/DatePicker/JalaliDatePicker';
+import According from './components/According/According';
 
 function App() {
 
   const [comboBoxValue, setComboBoxValue] = useState(0);
   const [ganttDatas, setGanttDatas] = useState(null);
+  const [ganttDatasFiltered, setGanttDatasFiltered] = useState(null);
   const [loading, setLoading] = useState(false);
-  let ganttColorIndex = 0;
+  let ganttColorIndex = -1;
 
   const httpClient = new HttpClient();
 
@@ -105,14 +108,108 @@ function App() {
           endDate: new DateObject({ year: 1404, month: 4, day: 8, calendar: persian, locale: persian_fa }),
           percentage: 15
         },
+      ],
+      [
+        {
+          id: 1,
+          label: 'نصب بازی',
+          startDate: new DateObject({ year: 1404, month: 5, day: 10, calendar: persian, locale: persian_fa }),
+          endDate: new DateObject({ year: 1404, month: 6, day: 13, calendar: persian, locale: persian_fa }),
+          percentage: 25
+        },
+        {
+          id: 2,
+          label: 'باگ گیری',
+          startDate: new DateObject({ year: 1404, month: 4, day: 1, calendar: persian, locale: persian_fa }),
+          endDate: new DateObject({ year: 1404, month: 9, day: 8, calendar: persian, locale: persian_fa }),
+          percentage: 71
+        },
+        {
+          id: 3,
+          label: 'سوپاپ اطمینان',
+          startDate: new DateObject({ year: 1404, month: 6, day: 5, calendar: persian, locale: persian_fa }),
+          endDate: new DateObject({ year: 1404, month: 7, day: 5, calendar: persian, locale: persian_fa }),
+          percentage: 100
+        },
+        {
+          id: 4,
+          label: 'راندمان گیری',
+          startDate: new DateObject({ year: 1404, month: 2, day: 28, calendar: persian, locale: persian_fa }),
+          endDate: new DateObject({ year: 1404, month: 4, day: 8, calendar: persian, locale: persian_fa }),
+          percentage: 15
+        },
+      ]
+      ,
+      [
+        {
+          id: 1,
+          label: 'نصب بازی',
+          startDate: new DateObject({ year: 1404, month: 5, day: 10, calendar: persian, locale: persian_fa }),
+          endDate: new DateObject({ year: 1404, month: 6, day: 13, calendar: persian, locale: persian_fa }),
+          percentage: 25
+        },
+        {
+          id: 2,
+          label: 'باگ گیری',
+          startDate: new DateObject({ year: 1404, month: 4, day: 1, calendar: persian, locale: persian_fa }),
+          endDate: new DateObject({ year: 1404, month: 9, day: 8, calendar: persian, locale: persian_fa }),
+          percentage: 71
+        },
+        {
+          id: 3,
+          label: 'سوپاپ اطمینان',
+          startDate: new DateObject({ year: 1404, month: 6, day: 5, calendar: persian, locale: persian_fa }),
+          endDate: new DateObject({ year: 1404, month: 7, day: 5, calendar: persian, locale: persian_fa }),
+          percentage: 100
+        },
+        {
+          id: 4,
+          label: 'راندمان گیری',
+          startDate: new DateObject({ year: 1404, month: 2, day: 28, calendar: persian, locale: persian_fa }),
+          endDate: new DateObject({ year: 1404, month: 4, day: 8, calendar: persian, locale: persian_fa }),
+          percentage: 15
+        },
       ]
     ];
 
     setGanttDatas(ganttDataas);
+    setGanttDatasFiltered(ganttDataas);
 
     setLoading(false);
 
   }, [comboBoxValue])
+
+  function onchangeFunctionFromDate(e) {
+
+    const dateValue = e.value;
+    const filteredData = [];
+
+    ganttDatas.map((ganttData) => {
+      const filter = ganttData.filter((pipeline) => {
+        return pipeline.startDate >= dateValue;
+      });
+
+      filteredData.push(filter);
+    });
+
+    setGanttDatasFiltered(filteredData);
+  }
+
+  function onchangeFunctionToDate(e) {
+    
+    const dateValue = e.value;
+    const filteredData = [];
+
+    ganttDatas.map((ganttData) => {
+      const filter = ganttData.filter((pipeline) => {
+        return pipeline.endDate <= dateValue;
+      });
+
+      filteredData.push(filter);
+    });
+
+    setGanttDatasFiltered(filteredData);
+  }
 
   return (
     <>
@@ -124,14 +221,30 @@ function App() {
           </Col>
         </Row>
 
+        <Row className='mb-3 mt-2 me-1'>
+          <Col lg={12} sm={12} xs={12}>
+            <According eventKey={0} title={'فیلتر ها'}>
+              <JalaliDatePicker onChangeFunction={onchangeFunctionFromDate} title={'از تاریخ : '} />
+              <JalaliDatePicker onChangeFunction={onchangeFunctionToDate} title={'تا تاریخ : '} />
+            </According>
+          </Col>
+        </Row>
+
         {loading &&
           <Row className='d-flex justify-content-center'>
             <Spinner animation='grow' />
           </Row>
         }
 
-        {ganttDatas && ganttDatas.map((ganttData, index) => {
+        {ganttDatasFiltered && ganttDatasFiltered.map((ganttData, index) => {
+
+          if (ganttData.length == 0)
+            return;
+
           ganttColorIndex++;
+          if (ganttColorIndex > colors.length)
+            ganttColorIndex = 0;
+
           return (
             <Row key={index}>
               <Col>
@@ -146,4 +259,4 @@ function App() {
   )
 }
 
-export default App
+export default App;

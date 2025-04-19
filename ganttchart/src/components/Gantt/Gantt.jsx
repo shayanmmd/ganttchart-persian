@@ -4,14 +4,14 @@ import Pipleline from "../Pipeline/Pipleline";
 import Label from "../Label/Label";
 import { useEffect, useRef, useState } from "react";
 import './gantt.scss'
-import { sortArrayByStartDate,sortArrayByEndDate } from "./functions";
+import { sortArrayByStartDate, sortArrayByEndDate } from "./functions";
 
-function Gantt({ data, color}) {
+function Gantt({ data, color }) {
 
     const [bigStartDate, setBigStartDate] = useState(null);
     const [bigEndDate, setBigEndDate] = useState(null);
     const [bigDuration, setBigDuration] = useState(null);
-    
+
     let stripedRow = true;
 
     const colRef = useRef(null);
@@ -24,8 +24,7 @@ function Gantt({ data, color}) {
 
         setBigStartDate(sortedArrayByStartDate[0].startDate);
         setBigEndDate(sortedArrayByEndDate[0].endDate);
-
-
+        
         const msDay = 24 * 60 * 60 * 1000;
         const daysDuration = Math.floor(((sortedArrayByEndDate[0].endDate.toDate() - sortedArrayByStartDate[0].startDate.toDate()) / msDay));
 
@@ -45,7 +44,7 @@ function Gantt({ data, color}) {
             window.removeEventListener('resize', handleResize);
         };
 
-    }, [])
+    }, [data])
 
     return (
         <>
