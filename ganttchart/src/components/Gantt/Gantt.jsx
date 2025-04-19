@@ -6,12 +6,12 @@ import { useEffect, useRef, useState } from "react";
 import './gantt.scss'
 import { sortArrayByStartDate,sortArrayByEndDate } from "./functions";
 
-function Gantt({ data, color ,backgroundColor}) {
+function Gantt({ data, color}) {
 
     const [bigStartDate, setBigStartDate] = useState(null);
     const [bigEndDate, setBigEndDate] = useState(null);
     const [bigDuration, setBigDuration] = useState(null);
-
+    
     let stripedRow = true;
 
     const colRef = useRef(null);
@@ -75,7 +75,6 @@ function Gantt({ data, color ,backgroundColor}) {
                                     <div style={{ position: 'absolute', right: right, left: left }}>
                                         <Pipleline
                                             color={color}
-                                            backgroundColor={backgroundColor}
                                             startDate={data.startDate.format("YYYY/MM/DD")}
                                             endDate={data.endDate.format("YYYY/MM/DD")}
                                             percentage={data.percentage}
