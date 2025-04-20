@@ -25,6 +25,8 @@ function App() {
 
   httpClient.get()
 
+  //TODO:request server to get new options
+
   const options = [
     {
       key: 'واحد سازمانی', value: '1'
@@ -196,7 +198,7 @@ function App() {
   }
 
   function onchangeFunctionToDate(e) {
-    
+
     const dateValue = e.value;
     const filteredData = [];
 
@@ -216,16 +218,24 @@ function App() {
       <Container dir='rtl' fluid >
 
         <Row className='mb-3 mt-2 me-1'>
-          <Col lg={2} sm={4} xs={12}>
-            <ComboBox onchangeFunction={onChangeComboBox} options={options} defaultSelect='واحد را انتخاب کنید ...' />
-          </Col>
-        </Row>
-
-        <Row className='mb-3 mt-2 me-1'>
           <Col lg={12} sm={12} xs={12}>
             <According eventKey={0} title={'فیلتر ها'}>
-              <JalaliDatePicker onChangeFunction={onchangeFunctionFromDate} title={'از تاریخ : '} />
-              <JalaliDatePicker onChangeFunction={onchangeFunctionToDate} title={'تا تاریخ : '} />
+
+              <Row className='mb-3 mt-2 me-1'>
+                <Col lg={4} sm={12}>
+                  <ComboBox onchangeFunction={onChangeComboBox} options={options} defaultSelect='واحد را انتخاب کنید ...' />
+                </Col>
+              </Row>
+
+              <Row>
+                <Col xl={6} lg={6} sm={12} xs={12} className='d-lg-block d-sm-flex justify-content-center'>
+                  <JalaliDatePicker onChangeFunction={onchangeFunctionFromDate} title={'از تاریخ : '} />
+                </Col>
+                <Col xl={6} lg={6} sm={12} xs={12} className='d-lg-block d-sm-flex justify-content-center'>
+                  <JalaliDatePicker onChangeFunction={onchangeFunctionToDate} title={'تا تاریخ : '} />
+                </Col>
+              </Row>
+
             </According>
           </Col>
         </Row>

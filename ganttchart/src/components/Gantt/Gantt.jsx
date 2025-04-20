@@ -24,7 +24,7 @@ function Gantt({ data, color }) {
 
         setBigStartDate(sortedArrayByStartDate[0].startDate);
         setBigEndDate(sortedArrayByEndDate[0].endDate);
-        
+
         const msDay = 24 * 60 * 60 * 1000;
         const daysDuration = Math.floor(((sortedArrayByEndDate[0].endDate.toDate() - sortedArrayByStartDate[0].startDate.toDate()) / msDay));
 
@@ -92,7 +92,6 @@ function Gantt({ data, color }) {
                     <Col ref={colRef} xl={10} lg={10} sm={9} xs={8}>
                         {bigStartDate && <DateLine startTime={bigStartDate}
                             endTime={bigEndDate} width={colWidth} />}
-
                     </Col>
                 </Row>
             </Container>
