@@ -17,13 +17,11 @@ function App() {
 
   const [comboBoxValue, setComboBoxValue] = useState(0);
   const [ganttDatas, setGanttDatas] = useState(null);
-  const [ganttDatasFiltered, setGanttDatasFiltered] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   let ganttColorIndex = -1;
 
-  const httpClient = new HttpClient();
-
-  httpClient.get()
 
   //TODO:request server to get new options
 
@@ -48,6 +46,19 @@ function App() {
 
   useEffect(() => {
 
+
+    if (startDate == null) {
+      const currentDate = new DateObject({ calendar: persian, locale: persian_fa });
+      const clonedCurrentDate = new DateObject(currentDate);
+
+      setStartDate(currentDate);
+      setEndDate(clonedCurrentDate.add(2, 'month'));
+    }
+
+  }, [])
+
+  useEffect(() => {
+
     if (comboBoxValue == 0) {
       setGanttDatas(null)
       return;
@@ -62,8 +73,8 @@ function App() {
         {
           id: 1,
           label: 'دولوپ کردن',
-          startDate: new DateObject({ year: 1404, month: 2, day: 10, calendar: persian, locale: persian_fa }),
-          endDate: new DateObject({ year: 1404, month: 6, day: 13, calendar: persian, locale: persian_fa }),
+          startDate: new DateObject({ year: 1404, month: 1, day: 10, calendar: persian, locale: persian_fa }),
+          endDate: new DateObject({ year: 1406, month: 4, day: 13, calendar: persian, locale: persian_fa }),
           percentage: 25
         },
         {
@@ -168,49 +179,26 @@ function App() {
           id: 4,
           label: 'راندمان گیری',
           startDate: new DateObject({ year: 1404, month: 2, day: 28, calendar: persian, locale: persian_fa }),
-          endDate: new DateObject({ year: 1404, month: 4, day: 8, calendar: persian, locale: persian_fa }),
+          endDate: new DateObject({ year: 1405, month: 4, day: 8, calendar: persian, locale: persian_fa }),
           percentage: 15
         },
       ]
     ];
 
     setGanttDatas(ganttDataas);
-    setGanttDatasFiltered(ganttDataas);
 
     setLoading(false);
 
   }, [comboBoxValue])
 
   function onchangeFunctionFromDate(e) {
-
-    const dateValue = e.value;
-    const filteredData = [];
-
-    ganttDatas.map((ganttData) => {
-      const filter = ganttData.filter((pipeline) => {
-        return pipeline.startDate >= dateValue;
-      });
-
-      filteredData.push(filter);
-    });
-
-    setGanttDatasFiltered(filteredData);
+    const newStartDate = new DateObject({ date: e.value, calendar: persian, locale: persian_fa })
+    setStartDate(newStartDate);
   }
 
   function onchangeFunctionToDate(e) {
-
-    const dateValue = e.value;
-    const filteredData = [];
-
-    ganttDatas.map((ganttData) => {
-      const filter = ganttData.filter((pipeline) => {
-        return pipeline.endDate <= dateValue;
-      });
-
-      filteredData.push(filter);
-    });
-
-    setGanttDatasFiltered(filteredData);
+    const newEndDate = new DateObject({ date: e.value, calendar: persian, locale: persian_fa })
+    setEndDate(newEndDate);
   }
 
   return (
@@ -229,10 +217,10 @@ function App() {
 
               <Row>
                 <Col xl={6} lg={6} sm={12} xs={12} className='d-lg-block d-sm-flex justify-content-center'>
-                  <JalaliDatePicker onChangeFunction={onchangeFunctionFromDate} title={'از تاریخ : '} />
+                  {startDate && <JalaliDatePicker date={startDate} onChangeFunction={onchangeFunctionFromDate} title={'از تاریخ : '} />}
                 </Col>
                 <Col xl={6} lg={6} sm={12} xs={12} className='d-lg-block d-sm-flex justify-content-center'>
-                  <JalaliDatePicker onChangeFunction={onchangeFunctionToDate} title={'تا تاریخ : '} />
+                  {endDate && <JalaliDatePicker date={endDate} onChangeFunction={onchangeFunctionToDate} title={'تا تاریخ : '} />}
                 </Col>
               </Row>
 
@@ -246,7 +234,7 @@ function App() {
           </Row>
         }
 
-        {ganttDatasFiltered && ganttDatasFiltered.map((ganttData, index) => {
+        {ganttDatas && ganttDatas.map((ganttData, index) => {
 
           if (ganttData.length == 0)
             return;
@@ -258,7 +246,7 @@ function App() {
           return (
             <Row key={index}>
               <Col>
-                < Gantt data={ganttData} color={colors[ganttColorIndex]} />
+                < Gantt startDate={startDate} endDate={endDate} data={ganttData} color={colors[ganttColorIndex]} />
               </Col>
             </Row>
           )

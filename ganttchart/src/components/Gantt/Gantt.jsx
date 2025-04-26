@@ -3,30 +3,19 @@ import DateLine from "../DateLine/DateLine";
 import Pipleline from "../Pipeline/Pipleline";
 import Label from "../Label/Label";
 import { useEffect, useRef, useState } from "react";
-import './gantt.scss'
-import { sortArrayByStartDate, sortArrayByEndDate } from "./functions";
+import './gantt.scss';
 
-function Gantt({ data, color }) {
+function Gantt({ data, color, startDate, endDate }) {
 
-    const [bigStartDate, setBigStartDate] = useState(null);
-    const [bigEndDate, setBigEndDate] = useState(null);
     const [bigDuration, setBigDuration] = useState(null);
-
-    let stripedRow = true;
-
-    const colRef = useRef(null);
     const [colWidth, setColWidth] = useState(0);
+    const colRef = useRef(null);
+    let stripedRow = true;
 
     useEffect(() => {
 
-        const sortedArrayByStartDate = sortArrayByStartDate(data);
-        const sortedArrayByEndDate = sortArrayByEndDate(data);
-
-        setBigStartDate(sortedArrayByStartDate[0].startDate);
-        setBigEndDate(sortedArrayByEndDate[0].endDate);
-
         const msDay = 24 * 60 * 60 * 1000;
-        const daysDuration = Math.floor(((sortedArrayByEndDate[0].endDate.toDate() - sortedArrayByStartDate[0].startDate.toDate()) / msDay));
+        const daysDuration = Math.floor(((endDate - startDate) / msDay));
 
         setBigDuration(daysDuration);
 
@@ -44,7 +33,7 @@ function Gantt({ data, color }) {
             window.removeEventListener('resize', handleResize);
         };
 
-    }, [data])
+    }, [data, startDate, endDate])
 
     return (
         <>
@@ -57,11 +46,30 @@ function Gantt({ data, color }) {
                         if (bigDuration == null)
                             return;
 
-                        const right = Math.floor((((data.startDate - bigStartDate) / msDay) / (bigDuration)) * 100) + '%';
-                        const left = Math.floor((((bigEndDate - data.endDate) / msDay) / bigDuration) * 100) + '%';
+                        let right;
+                        let left;
 
+                        if (data.startDate > startDate && data.startDate < endDate) {
+                            right = Math.floor((((data.startDate - startDate) / msDay) / (bigDuration)) * 100) + '%';
+                        } else if (data.startDate < startDate) {
+                            right = '0%';
+                        }
+                        else {
+                            return;
+                        }
+
+                        if (data.endDate < endDate && data.endDate > startDate) {
+                            left = Math.floor((((endDate - data.endDate) / msDay) / (bigDuration)) * 100) + '%';
+                        } else if (data.endDate > endDate) {
+                            left = '0%';
+                        }
+                        else {
+                            return;
+                        }
 
                         stripedRow = !stripedRow
+
+                        const displayPercentage = 50;
 
                         return (
                             <Row key={data.id} className={stripedRow ? 'striped-row' : 'not-striped-row'} >
@@ -73,6 +81,7 @@ function Gantt({ data, color }) {
                                 <Col xl={10} lg={10} sm={9} xs={8} style={{ position: 'relative' }}>
                                     <div style={{ position: 'absolute', right: right, left: left }}>
                                         <Pipleline
+                                            displayPercentage={displayPercentage}
                                             color={color}
                                             startDate={data.startDate.format("YYYY/MM/DD")}
                                             endDate={data.endDate.format("YYYY/MM/DD")}
@@ -90,8 +99,8 @@ function Gantt({ data, color }) {
                 <Row>
                     <Col></Col>
                     <Col ref={colRef} xl={10} lg={10} sm={9} xs={8}>
-                        {bigStartDate && <DateLine startTime={bigStartDate}
-                            endTime={bigEndDate} width={colWidth} />}
+                        {startDate && <DateLine startTime={startDate}
+                            endTime={endDate} width={colWidth} />}
                     </Col>
                 </Row>
             </Container>

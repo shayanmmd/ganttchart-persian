@@ -1,5 +1,6 @@
 export const colors = [
     'info',
     'success',
-    'primary'
-]
+    'primary',
+    'secondary'
+];
