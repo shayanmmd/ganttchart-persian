@@ -50,7 +50,7 @@ function App() {
     if (startDate == null) {
       const currentDate = new DateObject({ calendar: persian, locale: persian_fa });
       const clonedCurrentDate = new DateObject(currentDate);
-
+      
       setStartDate(currentDate);
       setEndDate(clonedCurrentDate.add(2, 'month'));
     }
@@ -73,9 +73,9 @@ function App() {
         {
           id: 1,
           label: 'دولوپ کردن',
-          startDate: new DateObject({ year: 1404, month: 1, day: 10, calendar: persian, locale: persian_fa }),
-          endDate: new DateObject({ year: 1406, month: 4, day: 13, calendar: persian, locale: persian_fa }),
-          percentage: 25
+          startDate: new DateObject({ year: 1404, month: 2, day: 15, calendar: persian, locale: persian_fa }),
+          endDate: new DateObject({ year: 1404, month: 4, day: 8, calendar: persian, locale: persian_fa }),
+          percentage: 75
         },
         {
           id: 2,
@@ -89,7 +89,7 @@ function App() {
           label: 'طراحی فیگما',
           startDate: new DateObject({ year: 1404, month: 4, day: 5, calendar: persian, locale: persian_fa }),
           endDate: new DateObject({ year: 1404, month: 7, day: 5, calendar: persian, locale: persian_fa }),
-          percentage: 43
+          percentage: 50
         },
       ],
       [
@@ -119,7 +119,7 @@ function App() {
           label: 'مصرف دخانیات',
           startDate: new DateObject({ year: 1404, month: 2, day: 28, calendar: persian, locale: persian_fa }),
           endDate: new DateObject({ year: 1404, month: 4, day: 8, calendar: persian, locale: persian_fa }),
-          percentage: 15
+          percentage: 5
         },
       ],
       [
@@ -152,37 +152,6 @@ function App() {
           percentage: 15
         },
       ]
-      ,
-      [
-        {
-          id: 1,
-          label: 'نصب بازی',
-          startDate: new DateObject({ year: 1404, month: 5, day: 10, calendar: persian, locale: persian_fa }),
-          endDate: new DateObject({ year: 1404, month: 6, day: 13, calendar: persian, locale: persian_fa }),
-          percentage: 25
-        },
-        {
-          id: 2,
-          label: 'باگ گیری',
-          startDate: new DateObject({ year: 1404, month: 4, day: 1, calendar: persian, locale: persian_fa }),
-          endDate: new DateObject({ year: 1404, month: 9, day: 8, calendar: persian, locale: persian_fa }),
-          percentage: 71
-        },
-        {
-          id: 3,
-          label: 'سوپاپ اطمینان',
-          startDate: new DateObject({ year: 1404, month: 6, day: 5, calendar: persian, locale: persian_fa }),
-          endDate: new DateObject({ year: 1404, month: 7, day: 5, calendar: persian, locale: persian_fa }),
-          percentage: 100
-        },
-        {
-          id: 4,
-          label: 'راندمان گیری',
-          startDate: new DateObject({ year: 1404, month: 2, day: 28, calendar: persian, locale: persian_fa }),
-          endDate: new DateObject({ year: 1405, month: 4, day: 8, calendar: persian, locale: persian_fa }),
-          percentage: 15
-        },
-      ]
     ];
 
     setGanttDatas(ganttDataas);
@@ -200,6 +169,8 @@ function App() {
     const newEndDate = new DateObject({ date: e.value, calendar: persian, locale: persian_fa })
     setEndDate(newEndDate);
   }
+
+  
 
   return (
     <>

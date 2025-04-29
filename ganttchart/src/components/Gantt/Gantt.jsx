@@ -4,6 +4,7 @@ import Pipleline from "../Pipeline/Pipleline";
 import Label from "../Label/Label";
 import { useEffect, useRef, useState } from "react";
 import './gantt.scss';
+import { calculateProgress } from "./functions";
 
 function Gantt({ data, color, startDate, endDate }) {
 
@@ -34,6 +35,8 @@ function Gantt({ data, color, startDate, endDate }) {
         };
 
     }, [data, startDate, endDate])
+
+
 
     return (
         <>
@@ -69,7 +72,7 @@ function Gantt({ data, color, startDate, endDate }) {
 
                         stripedRow = !stripedRow
 
-                        const displayPercentage = 50;
+                        const displayPercentage = calculateProgress(data.startDate, data.endDate, data.percentage, startDate, endDate);
 
                         return (
                             <Row key={data.id} className={stripedRow ? 'striped-row' : 'not-striped-row'} >
