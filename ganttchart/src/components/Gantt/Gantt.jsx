@@ -40,9 +40,13 @@ function Gantt({ data, color, startDate, endDate }) {
 
     return (
         <>
+        {console.log(data)
+        }
             <Container dir="rtl" fluid className="gantt-container">
                 {
                     data.map(function (data) {
+
+                        
 
                         const msDay = 24 * 60 * 60 * 1000;
 
