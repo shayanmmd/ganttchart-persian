@@ -1,26 +1,77 @@
 {
-    "posts": [
+    "ganttData": [
         {
-            "id": "1",
-            "title": "a title",
-            "views": 100
+            "unitId": 1,
+            "levels": [
+                {
+                    "id": 1,
+                    "LevelNo": "1",
+                    "title": "تحلیل و پیاده سازی",
+                    "description": "تحلیل سیستمی و پیاده سازی سامانه ترفیع تشویقی",
+                    "LevelEstimatedStartTime": "2025-05-04",
+                    "LevelEstimatedEndTime": "2025-07-05",
+                    "LevelStartTime": "2025-01-20",
+                    "LevelEndTime": "0000-00-00",
+                    "ProjectLevelStatus": "PROGRESSING",
+                    "EstimatedWorkHours": "600",
+                    "duration": "33",
+                    "Deadline": "2025-05-20",
+                    "percentage": 15
+                },
+                {
+                    "id": 2,
+                    "LevelNo": "2",
+                    "title": "تست و استقرار",
+                    "description": "تست سامانه و استقرار",
+                    "LevelEstimatedStartTime": "2025-05-05",
+                    "LevelEstimatedEndTime": "2025-05-20",
+                    "LevelStartTime": "0000-00-00",
+                    "LevelEndTime": "0000-00-00",
+                    "ProjectLevelStatus": "NOT_START",
+                    "EstimatedWorkHours": "40",
+                    "duration": "33",
+                    "Deadline": "2025-05-20",
+                    "percentage": 55
+                }
+            ]
         },
         {
-            "id": "2",
-            "title": "another title",
-            "views": 200
+            "unitId": 2,
+            "levels": [
+                {
+                    "id": 1,
+                    "LevelNo": "1",
+                    "title": "رفع اشکال",
+                    "description": "تحلیل سیستمی و پیاده سازی سامانه ترفیع تشویقی",
+                    "LevelEstimatedStartTime": "2025-06-04",
+                    "LevelEstimatedEndTime": "2025-08-05",
+                    "LevelStartTime": "2025-01-20",
+                    "LevelEndTime": "0000-00-00",
+                    "ProjectLevelStatus": "PROGRESSING",
+                    "EstimatedWorkHours": "600",
+                    "duration": "33",
+                    "Deadline": "2025-05-20",
+                    "percentage": 45
+                }
+            ]
         }
     ],
-    "comments": [
+    "units": [
         {
-            "id": "1",
-            "text": "a comment about post 1",
-            "postId": "1"
+            "id": 1,
+            "title": "واحد سازمانی"
         },
         {
-            "id": "2",
-            "text": "another comment about post 1",
-            "postId": "1"
+            "id": 2,
+            "title": "واحد توسعه"
+        },
+        {
+            "id": 3,
+            "title": "تیم فروش"
+        },
+        {
+            "id": 4,
+            "title": "مرکز فاوا"
         }
     ]
 }

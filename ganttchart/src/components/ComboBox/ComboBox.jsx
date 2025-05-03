@@ -8,7 +8,7 @@ function ComboBox({ size = 'sm', options = [], defaultSelect = 'انتخاب ک�
                 <option value="0">{defaultSelect}</option>
                 {options.map((option) => {
                     return (
-                        <option dir="rtl" key={option.value} value={option.value}>{option.key}</option>
+                        <option dir="rtl" key={option.id} value={option.id}>{option.title}</option>
                     )
                 })}
             </Form.Select>

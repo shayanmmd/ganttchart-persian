@@ -40,12 +40,9 @@ function Gantt({ data, color, startDate, endDate }) {
 
     return (
         <>
-        {console.log(data)
-        }
             <Container dir="rtl" fluid className="gantt-container">
                 {
                     data.map(function (data) {
-
                         
 
                         const msDay = 24 * 60 * 60 * 1000;
@@ -55,19 +52,19 @@ function Gantt({ data, color, startDate, endDate }) {
 
                         let right;
                         let left;
-
-                        if (data.startDate > startDate && data.startDate < endDate) {
-                            right = Math.floor((((data.startDate - startDate) / msDay) / (bigDuration)) * 100) + '%';
-                        } else if (data.startDate < startDate) {
+                        
+                        if (data.jLevelEstimatedStartTime > startDate && data.jLevelEstimatedStartTime < endDate) {
+                            right = Math.floor((((data.jLevelEstimatedStartTime - startDate) / msDay) / (bigDuration)) * 100) + '%';
+                        } else if (data.jLevelEstimatedStartTime < startDate) {
                             right = '0%';
                         }
                         else {
                             return;
                         }
 
-                        if (data.endDate < endDate && data.endDate > startDate) {
-                            left = Math.floor((((endDate - data.endDate) / msDay) / (bigDuration)) * 100) + '%';
-                        } else if (data.endDate > endDate) {
+                        if (data.jLevelEstimatedEndTime < endDate && data.jLevelEstimatedEndTime > startDate) {
+                            left = Math.floor((((endDate - data.jLevelEstimatedEndTime) / msDay) / (bigDuration)) * 100) + '%';
+                        } else if (data.jLevelEstimatedEndTime > endDate) {
                             left = '0%';
                         }
                         else {
@@ -76,13 +73,13 @@ function Gantt({ data, color, startDate, endDate }) {
 
                         stripedRow = !stripedRow
 
-                        const displayPercentage = calculateProgress(data.startDate, data.endDate, data.percentage, startDate, endDate);
+                        const displayPercentage = calculateProgress(data.jLevelEstimatedStartTime, data.jLevelEstimatedEndTime, data.percentage, startDate, endDate);
 
                         return (
                             <Row key={data.id} className={stripedRow ? 'striped-row' : 'not-striped-row'} >
 
                                 <Col className="d-flex align-items-center">
-                                    <Label text={data.label} />
+                                    <Label text={data.title} />
                                 </Col>
 
                                 <Col xl={10} lg={10} sm={9} xs={8} style={{ position: 'relative' }}>
@@ -90,8 +87,8 @@ function Gantt({ data, color, startDate, endDate }) {
                                         <Pipleline
                                             displayPercentage={displayPercentage}
                                             color={color}
-                                            startDate={data.startDate.format("YYYY/MM/DD")}
-                                            endDate={data.endDate.format("YYYY/MM/DD")}
+                                            startDate={data.jLevelEstimatedStartTime.format("YYYY/MM/DD")}
+                                            endDate={data.jLevelEstimatedEndTime.format("YYYY/MM/DD")}
                                             percentage={data.percentage}
                                             variant="success"
                                         />
