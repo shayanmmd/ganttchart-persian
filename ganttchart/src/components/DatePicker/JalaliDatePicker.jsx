@@ -11,7 +11,8 @@ function JalaliDatePicker({ date = new Date(), title, onChangeFunction }) {
                     <span>{title}</span>
                 </Col>
                 <Col xl={10} lg={10} sm={12}>
-                    <DatePicker inputClass="" defaultValue={date} onChange={(e) => onChangeFunction(e)} />
+                    <DatePicker direction="rtl" position="center" defaultValue={date} onChange={(e) => onChangeFunction(e)} />
+                    
                 </Col>
             </Row>
         </>
@@ -19,3 +20,5 @@ function JalaliDatePicker({ date = new Date(), title, onChangeFunction }) {
 }
 
 export default JalaliDatePicker;
+
+

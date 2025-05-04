@@ -58,10 +58,10 @@ function App() {
 
   useEffect(() => {
 
-    if (comboBoxValue == 0) {
-      setGanttDatas(null)
+    setGanttDatas(null);
+
+    if (comboBoxValue == 0)
       return;
-    }
 
     async function fetchGanttData() {
 
@@ -109,7 +109,7 @@ function App() {
 
               <Row className='mb-3 mt-2 me-1'>
                 <Col lg={4} sm={12}>
-                  {units && <ComboBox onchangeFunction={onChangeComboBox} options={units} defaultSelect='واحد را انتخاب کنید ...' />}
+                  <ComboBox onchangeFunction={onChangeComboBox} options={units ? units : null} defaultSelect='واحد را انتخاب کنید ...' />
                 </Col>
               </Row>
 

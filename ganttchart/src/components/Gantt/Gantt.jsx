@@ -78,7 +78,7 @@ function Gantt({ data, color, startDate, endDate }) {
                         return (
                             <Row key={data.id} className={stripedRow ? 'striped-row' : 'not-striped-row'} >
 
-                                <Col className="d-flex align-items-center">
+                                <Col className="d-flex align-items-center border-left">
                                     <Label text={data.title} />
                                 </Col>
 
