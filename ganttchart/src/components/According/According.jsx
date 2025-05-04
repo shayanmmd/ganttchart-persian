@@ -1,6 +1,6 @@
 import { Accordion } from "react-bootstrap";
 
-function According({children,title,direction='rtl',eventKey}) {
+function According({ children, title, direction = 'rtl', eventKey }) {
 
     return (
         <Accordion dir={direction}>

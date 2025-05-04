@@ -1,48 +1,21 @@
-import { OverlayTrigger, Popover, Row, Col, Container } from 'react-bootstrap';
+import { OverlayTrigger, Popover } from 'react-bootstrap';
 
 
-function Popup({ startDate,endDate,show,percentage, children }) {
-
-
+function Popup({ parentElement, children, show }) {
 
     return (
         <OverlayTrigger
-
             placement="bottom"
             show={show}
             overlay={
                 <Popover dir='rtl' style={{ width: '100%' }} id="popover-contained">
                     <Popover.Body>
-                        <Container>
-                            <Row>
-                                <Col lg={5}>
-                                    <span>زمان شروع :</span>
-                                </Col>
-                                <Col dir='ltr' lg={7}>
-                                    <p>{startDate}</p>
-                                </Col>
-
-                                <Col lg={5}>
-                                    <span>زمان پایان :</span>
-                                </Col>
-                                <Col dir='ltr' lg={7}>
-                                    <p>{endDate}</p>
-                                </Col>
-
-                                <Col lg={8}>
-                                    <span>درصد پیشرفت :</span>
-                                </Col>
-                                <Col dir='ltr' lg={4}>
-                                    <p>{percentage}%</p>
-                                </Col>
-
-                            </Row>
-                        </Container>
+                        {children}
                     </Popover.Body>
                 </Popover>
             }
         >
-            {children}
+            {parentElement}
         </OverlayTrigger>
     );
 }

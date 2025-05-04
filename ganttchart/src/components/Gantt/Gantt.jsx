@@ -1,10 +1,11 @@
 import { Col, Container, Row } from "react-bootstrap";
-import DateLine from "../DateLine/DateLine";
-import Pipleline from "../Pipeline/Pipleline";
-import Label from "../Label/Label";
+import { DateLine } from "../DateLine";
+import { Pipeline } from "../Pipeline";
+import { Label } from "../Label";
 import { useEffect, useRef, useState } from "react";
 import './gantt.scss';
 import { calculateProgress } from "./functions";
+import DateObject from "react-date-object";
 
 function Gantt({ data, color, startDate, endDate }) {
 
@@ -43,7 +44,7 @@ function Gantt({ data, color, startDate, endDate }) {
             <Container dir="rtl" fluid className="gantt-container">
                 {
                     data.map(function (data) {
-                        
+
 
                         const msDay = 24 * 60 * 60 * 1000;
 
@@ -52,7 +53,7 @@ function Gantt({ data, color, startDate, endDate }) {
 
                         let right;
                         let left;
-                        
+
                         if (data.jLevelEstimatedStartTime > startDate && data.jLevelEstimatedStartTime < endDate) {
                             right = Math.floor((((data.jLevelEstimatedStartTime - startDate) / msDay) / (bigDuration)) * 100) + '%';
                         } else if (data.jLevelEstimatedStartTime < startDate) {
@@ -84,7 +85,7 @@ function Gantt({ data, color, startDate, endDate }) {
 
                                 <Col xl={10} lg={10} sm={9} xs={8} style={{ position: 'relative' }}>
                                     <div style={{ position: 'absolute', right: right, left: left }}>
-                                        <Pipleline
+                                        <Pipeline
                                             displayPercentage={displayPercentage}
                                             color={color}
                                             startDate={data.jLevelEstimatedStartTime.format("YYYY/MM/DD")}
@@ -103,8 +104,8 @@ function Gantt({ data, color, startDate, endDate }) {
                 <Row>
                     <Col></Col>
                     <Col ref={colRef} xl={10} lg={10} sm={9} xs={8}>
-                        {startDate && <DateLine startTime={startDate}
-                            endTime={endDate} width={colWidth} />}
+                        {startDate && <DateLine startDate={new DateObject(startDate)}
+                            endDate={new DateObject(endDate)} width={colWidth} />}
                     </Col>
                 </Row>
             </Container>

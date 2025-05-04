@@ -1,3 +1,1 @@
-import Popup from "./Popup";
-
-export default Popup;
+export { default as Popup } from './Popup.jsx'

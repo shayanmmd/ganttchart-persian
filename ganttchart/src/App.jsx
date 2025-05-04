@@ -1,17 +1,17 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Gantt from './components/Gantt/Gantt';
+import { Gantt } from './components/Gantt';
 import DateObject from "react-date-object";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import { Col, Container, Row, Spinner } from 'react-bootstrap';
-import ComboBox from './components/ComboBox/ComboBox';
+import { ComboBox } from './components/ComboBox';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { HttpClientService } from './services/axios/HttpClientService';
 import { colors } from './helpers/constats';
-import JalaliDatePicker from './components/DatePicker/JalaliDatePicker';
-import According from './components/According/According';
+import { JalaliDatePicker } from './components/JalaliDatePicker';
+import { According } from './components/According';
 
 function App() {
 
@@ -109,7 +109,7 @@ function App() {
 
               <Row className='mb-3 mt-2 me-1'>
                 <Col lg={4} sm={12}>
-                  <ComboBox onchangeFunction={onChangeComboBox} options={units ? units : null} defaultSelect='واحد را انتخاب کنید ...' />
+                  <ComboBox onchangeFunction={onChangeComboBox} data={units ? units : null} defaultSelect='واحد را انتخاب کنید ...' />
                 </Col>
               </Row>
 

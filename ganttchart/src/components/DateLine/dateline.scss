@@ -1,0 +1,12 @@
+.container-dateline {
+    direction: rtl;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: space-around;
+}
+
+.month{
+    margin: 8px;
+}

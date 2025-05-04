@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
-import DateObject from "react-date-object";
+import './dateline.scss';
 
-function DateLine({ width, startTime, endTime }) {
+function DateLine({ width, startDate, endDate }) {
 
     const [displayMonths, setDisplayMonths] = useState(null);
 
     useEffect(() => {
-
-        const startDate = new DateObject(startTime);
-        const endDate = new DateObject(endTime);
 
         const months = [];
 
@@ -37,13 +34,15 @@ function DateLine({ width, startTime, endTime }) {
 
         setDisplayMonths(months);
 
-    }, [startTime, endTime, width]);
+    }, [startDate, endDate, width]);
 
     return (
-        <div style={{ direction: 'rtl', width: '100%', display: 'flex', flexWrap: 'nowrap', overflowX: 'auto', whiteSpace: 'nowrap', justifyContent: 'space-around' }}>
-            {displayMonths && displayMonths.map((date, index) => (
-                <span key={index} style={{ margin: '8px' }}>{date}</span>
-            ))}
+        <div className="container-dateline" >
+            {
+                displayMonths?.map((date, index) =>
+                    <span className="month" key={index}>{date}</span>
+                )
+            }
         </div>
     );
 }
