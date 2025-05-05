@@ -1,4 +1,5 @@
 import './App.css'
+import './font.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Gantt } from './components/Gantt';
 import DateObject from "react-date-object";
