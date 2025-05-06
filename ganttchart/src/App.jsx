@@ -90,13 +90,15 @@ function App() {
 
   }, [comboBoxValue])
 
-  function onchangeFunctionFromDate(e) {
-    const newStartDate = new DateObject({ date: e.value, calendar: persian, locale: persian_fa })
+  function onchangeFunctionFromDate(unix, formatted) {
+    const dateSplited = formatted.split('/');
+    const newStartDate = new DateObject({ year: dateSplited[0], month: dateSplited[1], day: dateSplited[2], calendar: persian, locale: persian_fa })
     setStartDate(newStartDate);
   }
 
-  function onchangeFunctionToDate(e) {
-    const newEndDate = new DateObject({ date: e.value, calendar: persian, locale: persian_fa })
+  function onchangeFunctionToDate(unix, formatted) {
+    const dateSplited = formatted.split('/');
+    const newEndDate = new DateObject({ year: dateSplited[0], month: dateSplited[1], day: dateSplited[2], calendar: persian, locale: persian_fa })
     setEndDate(newEndDate);
   }
 

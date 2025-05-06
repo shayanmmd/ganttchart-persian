@@ -26,6 +26,6 @@
         url('../fonts/IRANSansWeb/ttf/IRANSansWeb.ttf') format('truetype');
 }
 
-body {
+html {
     font-family: 'IRANSans' !important;
 }
