@@ -1,11 +1,9 @@
-// import { DatePicker } from "zaman";
 import './JalaliDatePicker.scss'
 import { Col, Row } from "react-bootstrap";
-import {
-    DatePicker
-} from "react-advance-jalaali-datepicker";
+import { DatePicker } from "react-advance-jalaali-datepicker";
+import { convertToEnglishDateNumbers } from '../../helpers/functions';
 
-function JalaliDatePicker({ date = new Date(), title, onChangeFunction }) {
+function JalaliDatePicker({ date, title, onChangeFunction }) {
 
     return (
         <>
@@ -14,15 +12,12 @@ function JalaliDatePicker({ date = new Date(), title, onChangeFunction }) {
                     <span>{title}</span>
                 </Col>
                 <Col xl={10} lg={10} sm={12}>
-                    {/* <DatePicker direction="rtl" position="center" defaultValue={date} onChange={(e) => onChangeFunction(e)} /> */}
                     <div className='datePicker'>
                         <DatePicker
                             placeholder={title}
                             format="jYYYY/jMM/jDD"
-                            preSelected={date.format('YYYY/MM/DD')}
+                            preSelected={convertToEnglishDateNumbers(date.format('YYYY/MM/DD'))}
                             onChange={onChangeFunction}
-                            id="datePicker"
-
                         />
                     </div>
                 </Col>

@@ -1,3 +1,5 @@
+import { numbersConversion } from './constats'
+
 export function calculateProgress(totalStartDate, totalEndDate, totalProgress, selectedStartDate, selectedEndDate) {
 
     const totalStartMs = totalStartDate.valueOf();
@@ -34,4 +36,16 @@ export function calculateProgress(totalStartDate, totalEndDate, totalProgress, s
     if (selectedEndMs < progressMs) {
         return 100;
     }
+}
+
+export function convertToEnglishDateNumbers(text) {
+    let result = '';
+    for (const alphabet of text) {
+        if (alphabet === '/') {
+            result += '/';
+            continue;
+        }
+        result += numbersConversion[alphabet];
+    }
+    return result;;
 }

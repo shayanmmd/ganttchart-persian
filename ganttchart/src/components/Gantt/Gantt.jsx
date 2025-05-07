@@ -4,7 +4,7 @@ import { Pipeline } from "../Pipeline";
 import { Label } from "../Label";
 import { useEffect, useRef, useState } from "react";
 import './gantt.scss';
-import { calculateProgress } from "./functions";
+import { calculateProgress } from "./../../helpers/functions";
 import DateObject from "react-date-object";
 
 function Gantt({ data, color, startDate, endDate }) {
@@ -43,8 +43,7 @@ function Gantt({ data, color, startDate, endDate }) {
         <>
             <Container dir="rtl" fluid className="gantt-container">
                 {
-                    data.map(function (data) {
-
+                    data?.map(function (data) {
 
                         const msDay = 24 * 60 * 60 * 1000;
 
@@ -104,8 +103,14 @@ function Gantt({ data, color, startDate, endDate }) {
                 <Row>
                     <Col></Col>
                     <Col ref={colRef} xl={10} lg={10} sm={9} xs={8}>
-                        {startDate && <DateLine startDate={new DateObject(startDate)}
-                            endDate={new DateObject(endDate)} width={colWidth} />}
+                        {
+                            startDate
+                            && endDate
+                            && <DateLine
+                                startDate={new DateObject(startDate)}
+                                endDate={new DateObject(endDate)} width={colWidth}
+                            />
+                        }
                     </Col>
                 </Row>
             </Container>
