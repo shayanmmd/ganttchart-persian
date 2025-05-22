@@ -36,8 +36,15 @@ function App() {
       const httpClient = new HttpClientService();
 
       const result = await httpClient.get('/units');
+      // const result = [
+      //   {
+      //     "id": 1,
+      //     "title": "معاونت آموزشی"
+      //   }
+      // ];
 
       setUnits(result.data);
+      // setUnits(result);
 
     }
 
@@ -72,6 +79,54 @@ function App() {
 
       const result = await httpClient.get(`/ganttData?unitId=${comboBoxValue}`);
 
+      // const result = [
+      //   {
+      //     "unitId": 1,
+      //     "levels": [
+      //       {
+      //         "LevelNo": "1",
+      //         "title": "تحلیل و پیاده سازی",
+      //         "description": "تحلیل سیستمی و پیاده سازی سامانه ترفیع تشویقی",
+      //         "LevelEstimatedStartTime": "2025-01-20",
+      //         "LevelEstimatedEndTime": "2025-05-05",
+      //         "LevelStartTime": "2025-01-20",
+      //         "LevelEndTime": "0000-00-00",
+      //         "ProjectLevelStatus": "PROGRESSING",
+      //         "EstimatedWorkHours": "600",
+      //         "duration": "33",
+      //         "Deadline": "2025-05-20"
+      //       },
+      //       {
+      //         "LevelNo": "2",
+
+      //         "title": "تست و استقرار",
+
+      //         "description": "تست سامانه و استقرار",
+
+      //         "LevelEstimatedStartTime": "2025-05-05",
+
+      //         "LevelEstimatedEndTime": "2025-05-20",
+
+      //         "LevelStartTime": "0000-00-00",
+
+      //         "LevelEndTime": "0000-00-00",
+
+      //         "ProjectLevelStatus": "NOT_START",
+
+      //         "EstimatedWorkHours": "40",
+
+      //         "duration": "33",
+
+      //         "Deadline": "2025-05-20"
+
+      //       }
+      //     ]
+      //   },
+      // ];
+
+
+
+
       const customData = result.data.filter((data) => {
         return data.levels.map((pipeline) => {
 
@@ -80,6 +135,16 @@ function App() {
           pipeline.jLevelStartTime = new DateObject({ date: new Date(pipeline.LevelStartTime), calendar: persian, locale: persian_fa });
         });
       });
+
+
+      // const customData = result.filter((data) => {
+      //   return data.levels.map((pipeline) => {
+
+      //     pipeline.jLevelEstimatedEndTime = new DateObject({ date: new Date(pipeline.LevelEstimatedEndTime), calendar: persian, locale: persian_fa });
+      //     pipeline.jLevelEstimatedStartTime = new DateObject({ date: new Date(pipeline.LevelEstimatedStartTime), calendar: persian, locale: persian_fa });
+      //     pipeline.jLevelStartTime = new DateObject({ date: new Date(pipeline.LevelStartTime), calendar: persian, locale: persian_fa });
+      //   });
+      // });
 
       setGanttDatas(customData);
 
