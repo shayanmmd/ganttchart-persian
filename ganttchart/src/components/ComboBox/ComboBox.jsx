@@ -7,7 +7,7 @@ function ComboBox({ size = 'sm', data, defaultSelect = 'انتخاب کنید ..
             <option value="0">{defaultSelect}</option>
             {data?.map((option) => {
                 return (
-                    <option dir={dir} key={option.id} value={option.id}>{option.title}</option>
+                    <option dir={dir} key={option.ProgramUnitSubGroupID} value={option.ProgramUnitSubGroupID}>{option.SubGroupTitle}</option>
                 )
             })}
         </Form.Select>

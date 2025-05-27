@@ -8,7 +8,7 @@ import { calculateProgress } from "./../../helpers/functions";
 import DateObject from "react-date-object";
 
 function Gantt({ data, color, startDate, endDate }) {
-
+    
     const [bigDuration, setBigDuration] = useState(null);
     const [colWidth, setColWidth] = useState(0);
     const colRef = useRef(null);
@@ -44,7 +44,7 @@ function Gantt({ data, color, startDate, endDate }) {
             <Container dir="rtl" fluid className="gantt-container">
                 {
                     data?.map(function (data) {
-
+                        
                         const msDay = 24 * 60 * 60 * 1000;
 
                         if (bigDuration == null)

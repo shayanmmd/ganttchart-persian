@@ -5,7 +5,11 @@ export class HttpClientService {
     #instance = axios.create({
         baseURL: import.meta.env.VITE_BASE_SERVER_ADDRESS,
         timeout: 1000,
-        headers: { 'Access-Control-Allow-Origin': true }
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "*",
+            "Access-Control-Allow-Headers": "'Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token'",
+        }
     });
 
     async get(route, body = null, headers = null) {

@@ -35,8 +35,8 @@ function App() {
 
       const httpClient = new HttpClientService();
 
-      const result = await httpClient.get('/units');
-  
+      const result = await httpClient.get('/api/v1/unit-sub-groups');
+
       setUnits(result.data);
     }
 
@@ -69,8 +69,7 @@ function App() {
 
       const httpClient = new HttpClientService();
 
-      const result = await httpClient.get(`/ganttData?unitId=${comboBoxValue}`);
-
+      const result = await httpClient.get(`/api/v1/gantt-datas?unitId=${comboBoxValue}`);      
 
       const customData = result.data.filter((data) => {
         return data.levels.map((pipeline) => {
@@ -136,7 +135,7 @@ function App() {
           </Row>
         }
 
-        {ganttDatas && ganttDatas.map((ganttData, index) => {
+        {ganttDatas && ganttDatas.map((ganttData, index) => {          
 
           if (ganttData.length == 0)
             return;
@@ -146,6 +145,7 @@ function App() {
             ganttColorIndex = 0;
 
           return (
+            
             <Row key={index}>
               <Col>
                 < Gantt startDate={startDate} endDate={endDate} data={ganttData.levels} color={colors[ganttColorIndex]} />
