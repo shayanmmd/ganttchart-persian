@@ -69,9 +69,16 @@ function App() {
 
       const httpClient = new HttpClientService();
 
-      const result = await httpClient.get(`/api/v1/gantt-datas?unitId=${comboBoxValue}`);      
+      const result = await httpClient.get(`/api/v1/gantt-datas?unitId=${comboBoxValue}`);
 
       const customData = result.data.filter((data) => {
+
+        
+        data.program.jEstimatedStarTime = new DateObject({ date: new Date(data.program.EstimatedStarTime), calendar: persian, locale: persian_fa });
+        data.program.jEstimatedEndTime = new DateObject({ date: new Date(data.program.EstimatedEndTime), calendar: persian, locale: persian_fa });
+        data.program.jStartTime = new DateObject({ date: new Date(data.program.StartTime), calendar: persian, locale: persian_fa });
+        data.program.jEndTime = new DateObject({ date: new Date(data.program.EndTime), calendar: persian, locale: persian_fa });
+
         return data.levels.map((pipeline) => {
 
           pipeline.jLevelEstimatedEndTime = new DateObject({ date: new Date(pipeline.LevelEstimatedEndTime), calendar: persian, locale: persian_fa });
@@ -79,7 +86,6 @@ function App() {
           pipeline.jLevelStartTime = new DateObject({ date: new Date(pipeline.LevelStartTime), calendar: persian, locale: persian_fa });
         });
       });
-
 
       setGanttDatas(customData);
 
@@ -135,7 +141,7 @@ function App() {
           </Row>
         }
 
-        {ganttDatas && ganttDatas.map((ganttData, index) => {          
+        {ganttDatas && ganttDatas.map((ganttData, index) => {
 
           if (ganttData.length == 0)
             return;
@@ -145,10 +151,10 @@ function App() {
             ganttColorIndex = 0;
 
           return (
-            
+
             <Row key={index}>
               <Col>
-                < Gantt startDate={startDate} endDate={endDate} data={ganttData.levels} color={colors[ganttColorIndex]} />
+                < Gantt startDate={startDate} endDate={endDate} levels={ganttData.levels} program={ganttData.program} color={colors[ganttColorIndex]} />
               </Col>
             </Row>
           )

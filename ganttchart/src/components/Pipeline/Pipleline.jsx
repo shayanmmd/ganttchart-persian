@@ -3,11 +3,14 @@ import './pipleline.scss'
 import { Popup } from '../Popup';
 import { ProgressBar } from 'react-bootstrap';
 import { Row, Col, Container } from 'react-bootstrap';
+import { TruncatedText } from '../TruncatedText';
 
 
-function Pipleline({ startDate, endDate, displayPercentage, percentage, color }) {
+function Pipleline({ startDate, endDate, displayPercentage, percentage, color, isPercentageDanger = false, isTimeDanger = false, description = null, title = null }) {
 
     const [showPopup, setShowPopup] = useState(false);
+
+    const styleProgressbar = (isPercentageDanger === true || isTimeDanger === true) ? { border: '1px solid red', borderRadius: '10px' } : { borderRadius: '10px' };
 
     const progressBarElement =
         <ProgressBar
@@ -17,11 +20,23 @@ function Pipleline({ startDate, endDate, displayPercentage, percentage, color })
             onMouseLeave={() => setShowPopup(false)}
             onMouseEnter={() => setShowPopup(true)}
             now={displayPercentage}
+            style={styleProgressbar}
         />
 
     return (
         <Popup parentElement={progressBarElement} show={showPopup}>
             <Container>
+                {
+                    title &&
+                    <Row>
+                        <Col lg={5}>
+                            <span>عنوان :</span>
+                        </Col>
+                        <Col dir='ltr' lg={12}>
+                            <TruncatedText className='margin-right-10' text={title} maxLength={60} />
+                        </Col>
+                    </Row>
+                }
                 <Row>
                     <Col lg={5}>
                         <span>زمان شروع :</span>
@@ -29,22 +44,35 @@ function Pipleline({ startDate, endDate, displayPercentage, percentage, color })
                     <Col dir='ltr' lg={7}>
                         <p>{startDate}</p>
                     </Col>
-
+                </Row>
+                <Row className={isTimeDanger ? 'border-danger' : ''}>
                     <Col lg={5}>
                         <span>زمان پایان :</span>
                     </Col>
                     <Col dir='ltr' lg={7}>
                         <p>{endDate}</p>
                     </Col>
-
+                </Row>
+                <Row className={isPercentageDanger ? 'border-danger' : ''}>
                     <Col lg={8}>
                         <span>درصد پیشرفت :</span>
                     </Col>
                     <Col dir='ltr' lg={4}>
                         <p>{percentage}%</p>
                     </Col>
-
                 </Row>
+                {
+                    description &&
+                    <Row>
+                        <Col lg={5}>
+                            <span>توضیحات :</span>
+                        </Col>
+                        <Col dir='ltr' lg={12}>
+                            <TruncatedText className='margin-right-10' text={description} maxLength={45} />
+                        </Col>
+                    </Row>
+                }
+
             </Container>
         </Popup>
     );

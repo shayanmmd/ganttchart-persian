@@ -4,10 +4,11 @@ import { Pipeline } from "../Pipeline";
 import { Label } from "../Label";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import './gantt.scss';
-import { calculateProgress } from "./../../helpers/functions";
+import { calculateProgress, calculatePosition } from "./../../helpers/functions";
 import DateObject from "react-date-object";
+import { Program } from "../Program";
 
-function Gantt({ data, color, startDate, endDate }) {
+function Gantt({ levels, program, color, startDate, endDate }) {
 
     const [bigDuration, setBigDuration] = useState(null);
     const [colWidth, setColWidth] = useState(0);
@@ -37,18 +38,18 @@ function Gantt({ data, color, startDate, endDate }) {
             window.removeEventListener('resize', handleResize);
         };
 
-    }, [data, startDate, endDate]);
+    }, [levels, program, startDate, endDate]);
 
     const checkIfGanttIsEmpty = () => {
 
         let count = 0;
 
-        data?.map(function (data) {
-            if ((data.jLevelEstimatedStartTime > endDate || data.jLevelEstimatedEndTime < startDate))
+        levels?.map(function (levels) {
+            if ((levels.jLevelEstimatedStartTime > endDate || levels.jLevelEstimatedEndTime < startDate))
                 count += 1;
         });
 
-        if (count == data.length)
+        if (count == levels.length)
             return true;
 
         return false;
@@ -64,48 +65,37 @@ function Gantt({ data, color, startDate, endDate }) {
 
     }, [startDate, endDate]);
 
+
+
     return (
         <>
             {!isGanttEmpty
                 && <Container dir="rtl" fluid className="gantt-container">
+                    <Program data={program} color={color} startDate={startDate} endDate={endDate} />
                     {
-                        data?.map(function (data) {
 
-                            const msDay = 24 * 60 * 60 * 1000;
+                        levels?.map(function (levels) {
 
-                            if (bigDuration == null)
+                            const pipelinePosition = calculatePosition(startDate, endDate, bigDuration, levels.jLevelEstimatedStartTime, levels.jLevelEstimatedEndTime);
+
+                            if (pipelinePosition == null)
                                 return;
 
-                            let right;
-                            let left;
-
-                            if (data.jLevelEstimatedStartTime > startDate && data.jLevelEstimatedStartTime < endDate) {
-                                right = Math.floor((((data.jLevelEstimatedStartTime - startDate) / msDay) / (bigDuration)) * 100) + '%';
-                            } else if (data.jLevelEstimatedStartTime < startDate) {
-                                right = '0%';
-                            }
-                            else {
-                                return;
-                            }
-
-                            if (data.jLevelEstimatedEndTime < endDate && data.jLevelEstimatedEndTime > startDate) {
-                                left = Math.floor((((endDate - data.jLevelEstimatedEndTime) / msDay) / (bigDuration)) * 100) + '%';
-                            } else if (data.jLevelEstimatedEndTime > endDate) {
-                                left = '0%';
-                            }
-                            else {
-                                return;
-                            }
+                            const [right, left] = pipelinePosition;
 
                             stripedRow = !stripedRow;
 
-                            const displayPercentage = calculateProgress(data.jLevelEstimatedStartTime, data.jLevelEstimatedEndTime, data.percentage, startDate, endDate);
+                            const displayPercentage = calculateProgress(levels.jLevelEstimatedStartTime, levels.jLevelEstimatedEndTime, levels.percentage, startDate, endDate);
+
+                            const isPercentageDanger = (levels.percentage > 100) ? true : false;
+
+                            const isTimeDanger = (levels.jLevelEstimatedEndTime < Date.now()) ? true : false;
 
                             return (
-                                <Row key={data.id} className={stripedRow ? 'striped-row' : 'not-striped-row'} >
+                                <Row key={levels.id} className={stripedRow ? 'striped-row' : 'not-striped-row'} >
 
                                     <Col className="d-flex align-items-center border-left">
-                                        <Label text={data.title} />
+                                        <Label text={levels.title} />
                                     </Col>
 
                                     <Col xl={10} lg={10} sm={9} xs={8} style={{ position: 'relative' }}>
@@ -113,10 +103,12 @@ function Gantt({ data, color, startDate, endDate }) {
                                             <Pipeline
                                                 displayPercentage={displayPercentage}
                                                 color={color}
-                                                startDate={data.jLevelEstimatedStartTime.format("YYYY/MM/DD")}
-                                                endDate={data.jLevelEstimatedEndTime.format("YYYY/MM/DD")}
-                                                percentage={data.percentage}
+                                                startDate={levels.jLevelStartTime.format("YYYY/MM/DD")}
+                                                endDate={levels.jLevelEstimatedEndTime.format("YYYY/MM/DD")}
+                                                percentage={levels.percentage}
                                                 variant="success"
+                                                isPercentageDanger={isPercentageDanger}
+                                                isTimeDanger={isTimeDanger}
                                             />
                                         </div>
                                     </Col>
@@ -125,8 +117,6 @@ function Gantt({ data, color, startDate, endDate }) {
                             )
                         })
                     }
-
-
 
                     <Row>
                         <Col></Col>
@@ -141,6 +131,7 @@ function Gantt({ data, color, startDate, endDate }) {
                             }
                         </Col>
                     </Row>
+
                 </Container>
             }
         </>
