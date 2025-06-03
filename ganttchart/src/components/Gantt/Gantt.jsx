@@ -76,7 +76,7 @@ function Gantt({ levels, program, color, startDate, endDate }) {
 
                         levels?.map(function (levels) {
 
-                            const pipelinePosition = calculatePosition(startDate, endDate, bigDuration, levels.jLevelEstimatedStartTime, levels.jLevelEstimatedEndTime);
+                            const pipelinePosition = calculatePosition(startDate, endDate, bigDuration, levels.jLevelStartTime, levels.jLevelEstimatedEndTime);
 
                             if (pipelinePosition == null)
                                 return;
@@ -106,7 +106,6 @@ function Gantt({ levels, program, color, startDate, endDate }) {
                                                 startDate={levels.jLevelStartTime.format("YYYY/MM/DD")}
                                                 endDate={levels.jLevelEstimatedEndTime.format("YYYY/MM/DD")}
                                                 percentage={levels.percentage}
-                                                variant="success"
                                                 isPercentageDanger={isPercentageDanger}
                                                 isTimeDanger={isTimeDanger}
                                             />

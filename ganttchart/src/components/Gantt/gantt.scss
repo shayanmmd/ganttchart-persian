@@ -1,5 +1,7 @@
+@import './../../styles/colors.scss';
+
 .striped-row {
-    background-color: rgba(247, 244, 241, 0.917);
+    background-color: $gray-100;
     margin: 3px;
     padding: 3px;
 }
@@ -7,16 +9,16 @@
 .not-striped-row {
     margin: 3px;
     padding: 3px;
-    background-color: rgba(255, 253, 251, 0.917);
+    background-color: $white;
 
 }
 
-.gantt-container{
-    border: 1px solid rgb(232, 213, 213);
+.gantt-container {
+    border: 1px solid $gray-300;
     border-radius: 5px;
     margin-bottom: 30px;
 }
 
-.border-left{
-    border-left: 2px #bfbfbf solid;
+.border-left {
+    border-left: 2px solid $gray-500;
 }

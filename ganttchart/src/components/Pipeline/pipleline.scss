@@ -1,15 +1,22 @@
+@import './../../styles/colors.scss';
+
 .progress-bar-custom {
-    margin: 3px;
-    background-color: rgb(219, 216, 216);
-    border-radius: 0;
+    margin: 3px !important;
+    background-color: $gray-400 !important;
+    border-radius: 7px !important;
 }
 
-.margin-right-10{
+.progress-bar-danger {
+    border: 1.3px dotted $danger !important;
+    border-radius: '10px'
+}
+
+.margin-right-10 {
     margin-right: 10px;
 }
 
-.border-danger{
-    border: 1px solid rgb(255, 0, 0);
-    border-radius: 8px;
-    margin-bottom: 3px;
+.border-danger {
+    border-radius: 8px !important;
+    margin-bottom: 3px !important;
+    background-color: $gray-200;
 }

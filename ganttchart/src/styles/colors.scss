@@ -1,0 +1,89 @@
+//black
+$white: #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black: #000;
+
+//primary
+$primary: #005f73;
+$primary-100: #005769;
+$primary-200: #004f5f;
+$primary-300: #004755;
+$primary-400: #003e4b;
+$primary-500: #003641;
+$primary-600: #002e37;
+$primary-700: #00252d;
+$primary-800: #001d23;
+$primary-900: #001519;
+
+//secondary
+$secondary: #94d2bd;
+$secondary-100: #8dcfb9;
+$secondary-200: #86ccb5;
+$secondary-300: #7fc9b1;
+$secondary-400: #78c6ad;
+$secondary-500: #71c3a9;
+$secondary-600: #6ac0a5;
+$secondary-700: #4eb495;
+$secondary-800: #3e9278;
+$secondary-900: #327660;
+
+//success
+$success: #02d817;
+$success-100: #02ce16;
+$success-200: #02c415;
+$success-300: #02ba14;
+$success-400: #02b013;
+$success-500: #02a612;
+$success-600: #029c11;
+$success-700: #029210;
+$success-800: #02880f;
+$success-900: #026a0c;
+
+//warning
+$warning: #ca9fee;
+$warning-100: #c08dea;
+$warning-200: #b67be6;
+$warning-300: #b172e4;
+$warning-400: #ac69e2;
+$warning-500: #a257de;
+$warning-600: #9d4edc;
+$warning-700: #933cd8;
+$warning-800: #892cd4;
+$warning-900: #6f22ac;
+
+//info
+$info: #fcca67;
+$info-100: #fcc75d;
+$info-200: #fcc453;
+$info-300: #fcbe3f;
+$info-400: #fcbb35;
+$info-500: #fcb521;
+$info-600: #fcaf0d;
+$info-700: #f2a503;
+$info-800: #e89e03;
+$info-900: #ca8903;
+
+//danger
+$danger: #ff3535;
+$danger-100: #ff2b2b;
+$danger-200: #ff2121;
+$danger-300: #ff1717;
+$danger-400: #ff0303;
+$danger-500: #e40000;
+$danger-600: #da0000;
+$danger-700: #d00000;
+$danger-800: #bc0000;
+$danger-900: #9e0000;
+
+$light: $gray-100;
+$dark: $gray-800;
+
+@import './../../node_modules/bootstrap/scss/bootstrap';

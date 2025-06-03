@@ -10,17 +10,16 @@ function Pipleline({ startDate, endDate, displayPercentage, percentage, color, i
 
     const [showPopup, setShowPopup] = useState(false);
 
-    const styleProgressbar = (isPercentageDanger === true || isTimeDanger === true) ? { border: '1px solid red', borderRadius: '10px' } : { borderRadius: '10px' };
-
     const progressBarElement =
         <ProgressBar
             dir='rtl'
-            variant={color}
-            className='progress-bar-custom'
+            variant={'info'}
+
+            className={`progress-bar-custom ${(isPercentageDanger === true || isTimeDanger === true) && 'progress-bar-danger'}`}
+
             onMouseLeave={() => setShowPopup(false)}
             onMouseEnter={() => setShowPopup(true)}
             now={displayPercentage}
-            style={styleProgressbar}
         />
 
     return (
@@ -33,7 +32,7 @@ function Pipleline({ startDate, endDate, displayPercentage, percentage, color, i
                             <span>عنوان :</span>
                         </Col>
                         <Col dir='ltr' lg={12}>
-                            <TruncatedText className='margin-right-10' text={title} maxLength={60} />
+                            <TruncatedText className='margin-right-10' text={title} maxLength={70} />
                         </Col>
                     </Row>
                 }
@@ -68,7 +67,7 @@ function Pipleline({ startDate, endDate, displayPercentage, percentage, color, i
                             <span>توضیحات :</span>
                         </Col>
                         <Col dir='ltr' lg={12}>
-                            <TruncatedText className='margin-right-10' text={description} maxLength={45} />
+                            <TruncatedText className='margin-right-10' text={description} maxLength={70} />
                         </Col>
                     </Row>
                 }
