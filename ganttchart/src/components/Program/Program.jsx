@@ -48,6 +48,6 @@ function Program({ data, startDate, endDate, color }) {
             </Col>
         </Row>
     )
-}
+} 
 
 export default Program;

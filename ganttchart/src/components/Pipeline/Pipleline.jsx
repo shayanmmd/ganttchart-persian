@@ -13,10 +13,8 @@ function Pipleline({ startDate, endDate, displayPercentage, percentage, color, i
     const progressBarElement =
         <ProgressBar
             dir='rtl'
-            variant={'info'}
-
+            variant={color}
             className={`progress-bar-custom ${(isPercentageDanger === true || isTimeDanger === true) && 'progress-bar-danger'}`}
-
             onMouseLeave={() => setShowPopup(false)}
             onMouseEnter={() => setShowPopup(true)}
             now={displayPercentage}
