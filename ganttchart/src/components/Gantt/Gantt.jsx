@@ -108,6 +108,8 @@ function Gantt({ levels, program, color, startDate, endDate }) {
                                                 percentage={levels.percentage}
                                                 isPercentageDanger={isPercentageDanger}
                                                 isTimeDanger={isTimeDanger}
+                                                estimatedWorkHours={levels.EstimatedWorkHours}
+                                                realWorkHours={levels.realWorkHours}
                                             />
                                         </div>
                                     </Col>

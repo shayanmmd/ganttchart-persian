@@ -37,12 +37,14 @@ function Program({ data, startDate, endDate, color }) {
                         color={color}
                         startDate={data.jStartTime.format("YYYY/MM/DD")}
                         endDate={data.jEstimatedEndTime.format("YYYY/MM/DD")}
-                        percentage={data.percentage}
+                        percentage={data.percentage ?? 0}
                         variant="success"
                         description={data.description}
                         title={data.title}
                         isPercentageDanger={isPercentageDanger}
                         isTimeDanger={isTimeDanger}
+                        realWorkHours={data.realWorkHours}
+                        estimatedWorkHours={data.EstimatedWorkHours}
                     />
                 </div>
             </Col>

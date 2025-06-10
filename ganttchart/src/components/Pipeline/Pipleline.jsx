@@ -6,7 +6,7 @@ import { Row, Col, Container } from 'react-bootstrap';
 import { TruncatedText } from '../TruncatedText';
 
 
-function Pipleline({ startDate, endDate, displayPercentage, percentage, color, isPercentageDanger = false, isTimeDanger = false, description = null, title = null }) {
+function Pipleline({ startDate, endDate, displayPercentage, percentage,realWorkHours,estimatedWorkHours, color, isPercentageDanger = false, isTimeDanger = false, description = null, title = null }) {
 
     const [showPopup, setShowPopup] = useState(false);
 
@@ -52,10 +52,26 @@ function Pipleline({ startDate, endDate, displayPercentage, percentage, color, i
                 </Row>
                 <Row className={isPercentageDanger ? 'border-danger' : ''}>
                     <Col lg={8}>
+                        <span>ساعت واقعی: </span>
+                    </Col>
+                    <Col dir='ltr' lg={4}>
+                        <p>{realWorkHours ?? 0}</p>
+                    </Col>
+                </Row>
+                 <Row className={isPercentageDanger ? 'border-danger' : ''}>
+                    <Col lg={8}>
+                        <span>ساعت تخمینی: </span>
+                    </Col>
+                    <Col dir='ltr' lg={4}>
+                        <p>{estimatedWorkHours ?? 0}</p>
+                    </Col>
+                </Row>
+                <Row className={isPercentageDanger ? 'border-danger' : ''}>
+                    <Col lg={8}>
                         <span>درصد پیشرفت :</span>
                     </Col>
                     <Col dir='ltr' lg={4}>
-                        <p>{percentage}%</p>
+                        <p>{percentage ?? 0}%</p>
                     </Col>
                 </Row>
                 {
