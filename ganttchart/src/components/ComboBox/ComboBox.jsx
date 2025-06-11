@@ -1,17 +1,10 @@
-import { Form } from "react-bootstrap";
+import { useState } from 'react';
+import Select from 'react-select';
 
-function ComboBox({ size = 'sm', data, defaultSelect = 'انتخاب کنید ...', onchangeFunction, dir = 'rtl' }) {
+function ComboBox({ data, onchangeFunction, defaultValue = 'انتخاب کنید...' }) {
 
-    return (
-        <Form.Select onChange={(event) => onchangeFunction(event)} size={size}>
-            <option value="0">{defaultSelect}</option>
-            {data?.map((option) => {
-                return (
-                    <option dir={dir} key={option.ProgramUnitSubGroupID} value={option.ProgramUnitSubGroupID}>{option.SubGroupTitle}</option>
-                )
-            })}
-        </Form.Select>
-    )
+    return <Select placeholder={defaultValue} options={data} onChange={onchangeFunction} isSearchable />;
 }
 
 export default ComboBox;
+

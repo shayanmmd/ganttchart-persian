@@ -17,7 +17,8 @@
     "react-advance-jalaali-datepicker": "^1.6.0",
     "react-bootstrap": "^2.10.9",
     "react-date-object": "^2.1.9",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "react-select": "^5.10.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

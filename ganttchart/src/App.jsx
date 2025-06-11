@@ -24,11 +24,6 @@ function App() {
   const [units, setUnits] = useState(null);
   let ganttColorIndex = -1;
 
-
-  const onChangeComboBox = (event) => {
-    setComboBoxValue(Number(event.target.value));
-  }
-
   useEffect(() => {
 
     async function fetchUnits() {
@@ -73,7 +68,7 @@ function App() {
 
       const customData = result.data.filter((data) => {
 
-        
+
         data.program.jEstimatedStarTime = new DateObject({ date: new Date(data.program.EstimatedStarTime), calendar: persian, locale: persian_fa });
         data.program.jEstimatedEndTime = new DateObject({ date: new Date(data.program.EstimatedEndTime), calendar: persian, locale: persian_fa });
         data.program.jStartTime = new DateObject({ date: new Date(data.program.StartTime), calendar: persian, locale: persian_fa });
@@ -118,7 +113,7 @@ function App() {
 
               <Row className='mb-3 mt-2 me-1'>
                 <Col lg={4} sm={12}>
-                  <ComboBox onchangeFunction={onChangeComboBox} data={units ? units : null} defaultSelect='واحد را انتخاب کنید ...' />
+                  <ComboBox onchangeFunction={(option) => setComboBoxValue(option.value)} data={units ? units : null} defaultSelect='واحد را انتخاب کنید ...' />
                 </Col>
               </Row>
 
